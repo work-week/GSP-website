@@ -1,6 +1,6 @@
 # GSP website
 
-The website for Global Shipping Partners, LLC ([gspforwarding.com](https://gspforwarding.com)). SvelteKit 3, Svelte 5 and TypeScript, hosted on Cloudflare Pages. It replaces the Webflow plan. Project background lives in the knowledge base, [`work-week/GSP`](https://github.com/work-week/GSP).
+The website for Global Shipping Partners, LLC ([gspforwarding.com](https://gspforwarding.com)). SvelteKit 3, Svelte 5 and TypeScript, hosted on Cloudflare Workers. It replaces the Webflow plan. Project background lives in the knowledge base, [`work-week/GSP`](https://github.com/work-week/GSP).
 
 Four pages: Home (`/`), About, Resources and Contact. The pages are server-rendered and work without JavaScript; only the form's Turnstile check needs it.
 
@@ -13,12 +13,14 @@ npm run dev
 
 `npm run check` typechecks. `npm run build`, then `npm run preview`, runs the production build locally on the Cloudflare runtime.
 
-## Deploy (Cloudflare Pages, Git integration)
+## Deploy (Cloudflare Workers, Git integration)
 
-Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → `work-week/GSP-website`.
+Cloudflare dashboard → Workers & Pages → Create → Import a repository → `work-week/GSP-website`. The Worker's name must match `name` in `wrangler.jsonc` (`gsp-website`).
 
-- Framework preset: SvelteKit. Build command: `npm run build`. Output directory: `.svelte-kit/cloudflare`.
-- Production branch: `main`. Every other branch gets a preview URL automatically.
+- Build command: `npm run build`. Deploy command: `npx wrangler deploy`.
+- Production branch: `main`. For preview URLs on other branches, enable non-production branch builds (deploy command `npx wrangler versions upload`).
+
+`wrangler.jsonc` sets `keep_vars`, so deploys keep the variables set in the dashboard. After changing `wrangler.jsonc`, run `npm run gen` on a clean checkout (no `.svelte-kit`) to regenerate `worker-configuration.d.ts`.
 
 ### Environment variables (Settings → Variables and Secrets)
 

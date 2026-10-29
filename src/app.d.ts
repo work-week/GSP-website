@@ -15,7 +15,7 @@ declare global {
 		// interface PageState {}
 	}
 
-	// Set in Cloudflare Pages (Settings > Variables and Secrets), not in wrangler.jsonc.
+	// Set in the Cloudflare dashboard (Worker → Settings → Variables and Secrets), not in wrangler.jsonc.
 	interface Env {
 		TURNSTILE_SITE_KEY?: string;
 		TURNSTILE_SECRET_KEY?: string;

@@ -2,6 +2,8 @@
 	"extends": "$app/tsconfig",
 	"compilerOptions": {
 		"strict": true,
+		// After a build, `wrangler types` adds an import of the built worker; don't typecheck that output.
+		"checkJs": false,
 		"types": [
 			"$app/types",
 			"./worker-configuration.d.ts"
